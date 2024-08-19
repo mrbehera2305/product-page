@@ -62,7 +62,7 @@ header {
 }
 
 .nav-links a:hover {
-  color: #0080ff;
+  color: #627becdb;
 }
 
 .search-icon {
@@ -70,7 +70,7 @@ header {
 }
 
 .search-icon .icon {
-  color: #0080ff;
+  color: #627becdb;
   font-size: 28px;
 }
 
@@ -85,49 +85,247 @@ header {
   color: #bbb3b3;
 }
 .product-container {
-  margin: 0 128px 20px 128px;
+  margin: 0 128px 30px 128px;
   box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.2);
 }
 .product-info {
   padding: 45px 65px 20px 65px;
   display: flex;
-  gap: 48px;
+  gap: 64px;
+}
+.product-img {
+  display: flex;
+  justify-content: center;
+}
+.product-compare-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+.product-compare-button button {
+  background-color: #fff;
+  padding: 2px 5px;
+  border: 1px solid grey;
+  cursor: pointer;
+  font-size: 12px;
 }
 .product-img img {
-  aspect-ratio: 1/2;
+  aspect-ratio: 1/2.1;
   width: 100%;
 }
 .price {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 55px;
 }
 .price button {
-  padding: 14px 38px;
-  background-color: #0080ff;
+  padding: 14px 42px;
+  background-color: #627becdb;
   color: #fff;
   text-transform: uppercase;
   border-radius: 25px;
   border: none;
   cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
 }
 .product-details {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 .product-details h2 {
-  font-size: 32px;
+  font-size: 28px;
 }
 .color-options {
   display: flex;
-  gap: 16px;
+  gap: 14px;
 }
 .color-box {
-  height: 30px;
-  width: 30px;
-  border: 1px solid #333;
+  height: 20px;
+  width: 20px;
   cursor: pointer;
+}
+.price h3 {
+  color: #627becdb;
+  font-size: 20px;
+  font-weight: 500;
+}
+.star-icon {
+  color: rgb(255, 211, 53);
+}
+.rating {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+.rating .star {
+  font-size: 18px;
+  color: #606060;
+  font-weight: 300;
+}
+.rating .text {
+  background-color: #dddddd;
+  font-size: 10px;
+  font-weight: 300;
+  padding: 2px 5px;
+}
+.product-review {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 80px;
+  border-bottom: 1px solid #ccc2c2cf;
+  padding-bottom: 16px;
+}
+.product-review-brand {
+  margin-top: 10px !important;
+  border: none !important;
+  gap: 20px !important;
+}
+.product-review-brand div img {
+  width: 60px;
+}
+.product-review-brand div p {
+  font-size: 12px;
+  font-weight: 300;
+  color: #606060;
+}
+
+.product-review div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.product-review div i {
+  color: #3fe5c2;
+  font-size: 24px;
+}
+.pdp-details {
+  font-size: 16px;
+  font-weight: 300;
+  color: #999999;
+}
+.pdp-quality {
+  font-size: 10px;
+  color: #999999;
+  font-weight: 300;
+}
+.product-feature {
+  background-color: #e5e5e580;
+  color: #3fe5c2;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.product-feature div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 11.11%;
+  height: 60px;
+}
+.product-feature div p {
+  font-size: 12px;
+  font-weight: 300;
+}
+.product-feature div:hover {
+  background-color: #627becdb;
+  color: #fff;
+}
+.specification {
+  margin: 0 128px 30px 128px;
+  display: flex;
+  gap: 30px;
+}
+.specification-container,
+.add-image-container,
+.similar-product-container {
+  box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.2);
+}
+.add-image-container {
+  padding: 18px;
+}
+.add-image-container img {
+  aspect-ratio: 1/1;
+  width: 100%;
+  margin: auto;
+}
+.specification-container {
+  flex: 3;
+}
+.similar-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.similar-product-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid grey;
+}
+.similar-product {
+  padding: 16px 20px;
+}
+
+.similar-product ul {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  list-style: none;
+}
+
+.similar-product li {
+  display: flex;
+  gap: 30px;
+}
+.similar-product li img {
+  aspect-ratio: 1/2.1;
+}
+
+.similar-product li div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.similar-product li div p {
+  font-size: 14px;
+}
+.similar-price {
+  color: #627becdb;
+}
+.similar-star {
+  color: #bbb3b3;
+}
+.specification-header {
+  padding: 16px 32px;
+  background-color: #e5e5e580;
+}
+.specification-content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 32px;
+}
+.specification-content div {
+  display: flex;
+}
+.spec-key {
+  font-size: 12px;
+  flex: 1;
+  font-weight: 600;
+}
+.spec-value {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 200;
+}
+.specification-header p span i {
+  color: #3fe5c2;
+  margin-right: 10px;
 }
 /* Mobile Styles */
 @media (max-width: 768px) {
@@ -177,6 +375,7 @@ header {
   .nav-links.active {
     display: flex;
     padding: 10px 0;
+    height: 100vh;
   }
 
   .nav-links li {
@@ -186,8 +385,9 @@ header {
 
   .nav-links a {
     display: block;
-    padding: 6px;
+    padding: 10px;
     font-size: 10px;
+    color: #fff;
   }
   .breadcrums-container {
     margin: 5px 20px;
@@ -209,13 +409,76 @@ header {
   }
   .product-details h2 {
     font-size: 21px;
+    text-align: center;
   }
   .price button {
-    padding: 10px 28px;
-    border-radius: 15px;
+    padding: 8px 20px;
+    border-radius: 12px;
+    font-size: 8px;
+  }
+  .price h3 {
+    font-size: 14px;
   }
   .color-options {
     justify-content: center;
     align-items: center;
+  }
+  .rating {
+    justify-content: center;
+  }
+  .rating .star {
+    font-size: 16px;
+  }
+  .product-img img {
+    width: 75%;
+  }
+  .price {
+    justify-content: space-evenly;
+    gap: 0;
+  }
+  .product-review {
+    gap: 12px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+  }
+  .product-review div i {
+    font-size: 18px;
+  }
+  .pdp-details {
+    font-size: 14px;
+  }
+  .pdp-quality {
+    font-size: 8px;
+  }
+  .product-review div {
+    gap: 3px;
+  }
+  .product-feature div {
+    flex: 1 1 33.33%;
+  }
+  .specification {
+    margin: 0 20px 10px 20px;
+    gap: 16px;
+    flex-direction: column;
+  }
+  .specification-header{
+    padding: 12px 16px;
+  }
+  .specification-header p{
+    font-size: 12px;
+  }
+  .add-image-container {
+    padding: 16px;
+  }
+  .similar-container,
+  .similar-container ul {
+    gap: 16px;
+  }
+  .specification-content {
+    gap: 14px;
+    padding: 20px;
+  }
+  .spec-value,.spec-key {
+    font-size: 8px;
   }
 }
