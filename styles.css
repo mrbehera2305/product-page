@@ -716,6 +716,7 @@ footer {
   }
   footer {
     padding: 40px 20px;
+    margin-top: 50px;
   }
   .footer-container {
     flex-direction: column;
@@ -725,6 +726,12 @@ footer {
   .footer-section {
     max-width: 100%;
     text-align: center;
+  }
+  .footer-section h2{
+    font-size: 1rem;
+  }
+  .footer-section p {
+    font-size: 10px;
   }
 
   .instagram-images {
