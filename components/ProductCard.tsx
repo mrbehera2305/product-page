@@ -5,19 +5,43 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Product } from '@/lib/types';
 import { useAuth } from '@/context/AuthContext';
-import { Heart, ShoppingBag, Star, AlertCircle } from 'lucide-react';
+import { Heart, ShoppingBag, Star, AlertCircle, Plus, Minus } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { addToCart, wishlist, toggleWishlist } = useAuth();
+  const { addToCart, cart, removeFromCart, updateCartQuantity, wishlist, toggleWishlist } = useAuth();
   const isWishlisted = wishlist.includes(product._id);
+
+  const cartItem = cart.find(ci => ci.product._id === product._id);
+  const quantity = cartItem ? cartItem.quantity : 0;
 
   const discountedPrice = (product.price * (1 - product.discount / 100)).toFixed(2);
   const isLowStock = product.stock > 0 && product.stock <= 5;
   const isOutOfStock = product.stock <= 0;
+
+  const handleIncrement = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (quantity < product.stock) {
+      updateCartQuantity(product._id, quantity + 1);
+    }
+  };
+
+  const handleDecrement = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (quantity <= 1) {
+      removeFromCart(product._id);
+    } else {
+      updateCartQuantity(product._id, quantity - 1);
+    }
+  };
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addToCart(product);
+  };
 
   return (
     <div className="group relative bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden">
@@ -113,18 +137,46 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               </div>
             </div>
 
-            <button
-              onClick={() => addToCart(product)}
-              disabled={isOutOfStock}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl font-bold text-xs shadow-sm transition-all ${
-                isOutOfStock
-                  ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
-                  : 'bg-emerald-600 hover:bg-emerald-700 text-white active:scale-95'
-              }`}
-            >
-              <ShoppingBag className="w-3.5 h-3.5" />
-              <span>Add</span>
-            </button>
+            {/* Add to Cart / Quantity Counter */}
+            {quantity > 0 ? (
+              <div className="flex items-center gap-0 rounded-xl overflow-hidden shadow-sm border border-emerald-200">
+                <button
+                  onClick={handleDecrement}
+                  className="flex items-center justify-center w-8 h-8 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 transition-colors active:scale-90"
+                  aria-label="Decrease quantity"
+                >
+                  <Minus className="w-3.5 h-3.5" strokeWidth={2.5} />
+                </button>
+                <span className="flex items-center justify-center w-8 h-8 bg-white text-xs font-extrabold text-emerald-800 select-none tabular-nums">
+                  {quantity}
+                </span>
+                <button
+                  onClick={handleIncrement}
+                  disabled={quantity >= product.stock}
+                  className={`flex items-center justify-center w-8 h-8 transition-colors active:scale-90 ${
+                    quantity >= product.stock
+                      ? 'bg-slate-50 text-slate-300 cursor-not-allowed'
+                      : 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                  }`}
+                  aria-label="Increase quantity"
+                >
+                  <Plus className="w-3.5 h-3.5" strokeWidth={2.5} />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={handleAddToCart}
+                disabled={isOutOfStock}
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl font-bold text-xs shadow-sm transition-all ${
+                  isOutOfStock
+                    ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                    : 'bg-emerald-600 hover:bg-emerald-700 text-white active:scale-95'
+                }`}
+              >
+                <ShoppingBag className="w-3.5 h-3.5" />
+                <span>Add</span>
+              </button>
+            )}
           </div>
         </div>
 

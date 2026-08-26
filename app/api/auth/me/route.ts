@@ -14,5 +14,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ user: null });
   }
 
-  return NextResponse.json({ user });
+  const { password, ...safeUser } = user;
+  return NextResponse.json({ user: safeUser });
 }

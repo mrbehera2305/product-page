@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import { NextRequest } from 'next/server';
 import { User } from './types';
 import { getStore } from './db';
@@ -40,10 +41,14 @@ export function getAuthUser(req: NextRequest): TokenPayload | null {
   return verifyJWT(token);
 }
 
-// Password validation (with fallback for sample users)
-export function validatePassword(inputPass: string, targetPass: string = 'password123'): boolean {
-  if (inputPass === 'admin123' || inputPass === 'password123' || inputPass === targetPass) {
-    return true;
-  }
-  return inputPass.length >= 6;
+// Hash a plain-text password using bcrypt
+export async function hashPassword(password: string): Promise<string> {
+  const salt = await bcrypt.genSalt(10);
+  return bcrypt.hash(password, salt);
 }
+
+// Compare a plain-text password against a bcrypt hash
+export async function comparePassword(password: string, hash: string): Promise<boolean> {
+  return bcrypt.compare(password, hash);
+}
+

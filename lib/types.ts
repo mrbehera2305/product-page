@@ -2,6 +2,7 @@ export interface User {
   _id: string;
   name: string;
   email: string;
+  password?: string; // bcrypt hashed password
   role: 'customer' | 'admin';
   phone?: string;
   address?: string;

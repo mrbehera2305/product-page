@@ -19,6 +19,8 @@ export const INITIAL_USERS: User[] = [
     _id: "usr_admin_1",
     name: "Store Admin",
     email: "admin@quickmart.com",
+    // password: "admin123" - bcrypt hash with 10 salt rounds
+    password: "$2a$10$F35tonnSbFw04LwPvcTE5O.dUUyzlPJE6WReEisagLWgaPBt14SEq",
     role: "admin",
     phone: "9876543210",
     address: "QuickMart HQ, Main Market",
@@ -28,6 +30,8 @@ export const INITIAL_USERS: User[] = [
     _id: "usr_cust_1",
     name: "Rahul Sharma",
     email: "rahul@gmail.com",
+    // password: "password123" - bcrypt hash with 10 salt rounds
+    password: "$2a$10$Bl0ZORzI8Eg0ifcRCax8/ePOw1unZEkbXRZjjcY8tDMavpziW1oYi",
     role: "customer",
     phone: "9812345678",
     address: "Flat 402, Sunshine Apartments, Civil Lines",

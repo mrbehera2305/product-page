@@ -1,29 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getStore } from '@/lib/db';
-import { signJWT, validatePassword } from '@/lib/auth';
+import { signJWT, comparePassword } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password } = await req.json();
+    const { email, phone, identifier, password } = await req.json();
 
-    if (!email || !password) {
-      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
+    // Support 'identifier' field (email or phone) or separate email/phone fields
+    const loginId = (identifier || email || phone || '').trim();
+
+    if (!loginId || !password) {
+      return NextResponse.json({ error: 'Email/phone and password are required' }, { status: 400 });
     }
 
     const store = getStore();
-    const user = store.users.find(u => u.email.toLowerCase() === email.toLowerCase());
 
-    if (!user) {
-      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+    // Determine if the identifier is a phone number (all digits, 10 chars) or email
+    const isPhone = /^\d{10}$/.test(loginId);
+
+    const user = isPhone
+      ? store.users.find(u => u.phone === loginId)
+      : store.users.find(u => u.email?.toLowerCase() === loginId.toLowerCase());
+
+    if (!user || !user.password) {
+      return NextResponse.json({ error: 'Invalid email/phone or password' }, { status: 401 });
     }
 
-    if (!validatePassword(password)) {
-      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+    // Compare the provided password against the stored bcrypt hash
+    const isPasswordValid = await comparePassword(password, user.password);
+    if (!isPasswordValid) {
+      return NextResponse.json({ error: 'Invalid email/phone or password' }, { status: 401 });
     }
 
     const token = signJWT({
       userId: user._id,
-      email: user.email,
+      email: user.email || '',
       role: user.role,
       name: user.name,
     });
@@ -52,3 +63,5 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: error.message || 'Internal server error' }, { status: 500 });
   }
 }
+
+

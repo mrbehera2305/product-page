@@ -4,20 +4,20 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { Store, Lock, Mail, ShieldAlert, ArrowRight } from 'lucide-react';
+import { Store, Lock, User as UserIcon, ShieldAlert, ArrowRight } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
   const { login, showToast } = useAuth();
 
-  const [email, setEmail] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) {
-      showToast('Please fill in both email and password', 'error');
+    if (!identifier || !password) {
+      showToast('Please fill in both email/phone and password', 'error');
       return;
     }
 
@@ -27,7 +27,7 @@ export default function LoginPage() {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), password }),
+        body: JSON.stringify({ identifier: identifier.trim(), password }),
       });
 
       const data = await res.json();
@@ -50,13 +50,13 @@ export default function LoginPage() {
   };
 
   const prefillAdmin = () => {
-    setEmail('admin@quickmart.com');
+    setIdentifier('admin@quickmart.com');
     setPassword('admin123');
     showToast('Admin credentials filled!', 'info');
   };
 
   const prefillCustomer = () => {
-    setEmail('rahul@gmail.com');
+    setIdentifier('rahul@gmail.com');
     setPassword('password123');
     showToast('Customer demo credentials filled!', 'info');
   };
@@ -93,17 +93,17 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div>
-            <label className="block font-bold text-slate-700 mb-1">Email Address</label>
+            <label className="block font-bold text-slate-700 mb-1">Email or Phone Number</label>
             <div className="relative">
               <input
-                type="email"
+                type="text"
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@example.com"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
+                placeholder="name@example.com or 9876543210"
                 className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
-              <Mail className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
+              <UserIcon className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
             </div>
           </div>
 
